@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request
+import sys
 import pandas as pd
 import joblib
 import pickle as pkl
@@ -9,9 +10,10 @@ from api.models.custom_models import ModelWithThreshold
 api_directory = os.path.dirname(os.path.abspath(__file__))
 
 
-# Charger le modèle au démarrage
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, "model/loan_model.pkl")
+# # Charger le modèle au démarrage
+# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'model')))
+MODEL_PATH = "model/loan_model.pkl"
 
 with open(MODEL_PATH, 'rb') as file:
     model = pkl.load(file)
