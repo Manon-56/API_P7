@@ -35,6 +35,7 @@ jobs:
       # Run tests
       - name: Run unit tests
         run: |
+          python -m venv antenv
           source antenv/bin/activate
           echo "Running tests..."
           pytest tests/test_apicode.py --maxfail=1
