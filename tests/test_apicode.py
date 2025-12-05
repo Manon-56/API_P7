@@ -24,13 +24,13 @@ def test_request_loading():
 
 
 # Teste le chargement du modèle de prédiction
-def test_model_loading():
+def test_model_creation():
     # Détermine le chemin du fichier contenant le modèle entraîné
     model_path = os.path.join(api_directory, "..", "model", "loan_model.pkl")
     # Charge le modèle à partir du fichier
     model = joblib.load(model_path)
     # Vérifie que le modèle a été chargé correctement
-    assert model is not None, "There is an error in model loading."
+    assert model is not None, "There is an error in model creation."
 
 
 
