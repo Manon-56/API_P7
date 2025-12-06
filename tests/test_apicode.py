@@ -54,9 +54,9 @@ def test_model_output():
     assert (seuil>0) and (seuil<1)
     verdict_list = response.get("Verdict")
     for idx, verdict in enumerate(verdict_list):
-        if verdict.startswith("Le prêt peut être accordé"):
+        if verdict.startswith("Le prêt est accordé"):
             assert proba_list[idx]>seuil
-        elif verdict.startswith("Le prêt ne peut pas être accordé"):
+        elif verdict.startswith("Le prêt est refusé"):
             assert proba_list[idx]<=seuil
         else:
             print("There is an error in the prediction process")
