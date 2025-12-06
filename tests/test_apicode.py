@@ -48,9 +48,9 @@ def test_model_output():
     
     response = use_model(requete)
 
-    proba_list = ast.literal_eval(response.get('Probabilité de remboursement'))
+    proba_list = response.get('Probabilité de remboursement')
     assert all(((proba <1) and (proba >0)) for proba in  proba_list)
-    seuil = ast.literal_eval(response.get('Seuil utilisé'))
+    seuil = response.get('Seuil utilisé')
     assert (seuil>0) and (seuil<1)
     verdict_list = response.get("Verdict")
     for idx, verdict in enumerate(verdict_list):
