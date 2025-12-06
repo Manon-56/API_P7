@@ -20,16 +20,16 @@ model = joblib.load(model_path)
 
 app = FastAPI(title="Home Credit API")
 
-def use_model(data: Request):
+def use_model(data: list[dict]):
     df = pd.DataFrame(data)
     # Charger le modèle depuis MLflow
-    proba_list = model.predict_proba(df)[:,0]
+    proba_list = model.predict_proba(df)[:,0].tolist()
     preds_list = model.predict(df)
     accepted_loan = "Le prêt est accordé"
     rejected_loan = "Le prêt est refusé"
     verdict = [accepted_loan if pred == 0 else rejected_loan for pred in preds_list]
     # print(preds)
-    return {"Verdict": str(verdict), "Probabilité de remboursement": str(proba_list), "Seuil utilisé" : str(1-model.threshold)}
+    return {"Verdict": verdict, "Probabilité de remboursement": proba_list, "Seuil utilisé" : float(1-model.threshold)}
 
 @app.get("/")
 def home():
@@ -38,4 +38,4 @@ def home():
 @app.post("/predict")
 async def model_predict(request: Request):
     data = await request.json()
-    use_model(data = data)
+    return use_model(data = data)
